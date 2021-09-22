@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-
+import Filebase from 'react-file-base64'
 import { TextField, Button, Typography, Paper, DialogContentText} from '@material-ui/core'
 import useStyles from './styles'
-
+import createPost from '../../actions/posts'
+import { useDispatch } from 'react-redux'
 const Form = () => {
     const [postData, setPostData] = useState({
         creator: '',
@@ -11,11 +12,14 @@ const Form = () => {
         tags: '',
         selectedFile: ''
     })
-    const
+    const dispatch = useDispatch();
     const classes = useStyles()
-    const handleSubmit = (event) => {
-        event.preventDefault()
+   
+    const handleSubmit= (e)=>{
+        e.preventDefault();
+        dispatch(createPost(postData))
     }
+    
     const onChangeCreatorHandler = e =>{
         setPostData({
             ...postData,
@@ -43,15 +47,42 @@ const Form = () => {
             tags: e.target.value
         })
     }
+
+    const clear = ()=> {
+
+    }
     
     return(
         <Paper className={classes.paper}>
-            <form autoComplete="off" noValidate className={classes.form} onSubmit={handleSubmit}>
+            <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">Creating a Memory</Typography>
-                <TextField name="creator" variant="outlined" label="Creator"fullWidth value={postData.creator} onChange={onChangeCreatorHandler}/>
-                <TextField name="title" variant="outlined" label="Creator"fullWidth value={postData.creator} onChange={onChangeTitleHandler}/>
-                <TextField name="message" variant="outlined" label="Creator"fullWidth value={postData.creator} onChange={onChangeMessageHandler}/>
-                <TextField name="tags" variant="outlined" label="Creator"fullWidth value={postData.creator} onChange={onChangeTagsHandler}/>
+                <TextField name="creator" variant="outlined" label="Creator" fullWidth value={postData.creator} onChange={onChangeCreatorHandler}/>
+                <TextField name="title" variant="outlined" label="Creator" fullWidth value={postData.title} onChange={onChangeTitleHandler}/>
+                <TextField name="message" variant="outlined" label="Creator" fullWidth value={postData.message} onChange={onChangeMessageHandler}/>
+                <TextField name="tags" variant="outlined" label="Creator" fullWidth value={postData.tags} onChange={onChangeTagsHandler}/>
+                <div className={classes.fileInput}>
+                    <Filebase
+                    type="file"
+                    multiple={false}
+                    onDone={(base64)=> setPostData({...postData, selectedFile:base64})}
+                    />
+                </div>
+                <Button 
+                    className={classes.buttonSubmit}
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    type="submit"
+                    fullWidth
+                    >Submit</Button>
+                <Button 
+                    className={classes.buttonSubmit}
+                    variant="contained"
+                    color="secondary"
+                    size="small"
+                    onClick={clear}
+                    fullWidth
+                    >Clear</Button>
             </form>
         </Paper>
     )
