@@ -24,3 +24,8 @@ export const createPost = async (req, res) => {
         res.status(409).json({ message: error.message })
     }
 }
+
+
+export const updatePost = async (req, res, next) => {
+    const { id: _id } = req.params;
+}
