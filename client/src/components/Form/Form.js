@@ -1,10 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Filebase from 'react-file-base64'
 import { TextField, Button, Typography, Paper, DialogContentText} from '@material-ui/core'
 import useStyles from './styles'
 import createPost from '../../actions/posts'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
 const Form = () => {
+    const post = useSelector((state)=> currentId ? state.state.find(p=> p._id === currentId): null)
     const [postData, setPostData] = useState({
         creator: '',
         title: '',
@@ -12,6 +14,10 @@ const Form = () => {
         tags: '',
         selectedFile: ''
     })
+
+    useEffect(()=> {
+        if(post) setPostData(post);
+    }, [post])
     const dispatch = useDispatch();
     const classes = useStyles()
    
