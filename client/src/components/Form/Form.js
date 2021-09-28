@@ -57,7 +57,7 @@ const Form = ({currentId, setCurrentId}) => {
     const onChangeTagsHandler = e =>{
         setPostData({
             ...postData,
-            tags: e.target.value
+            tags: e.target.value.split(',')
         })
     }
 
