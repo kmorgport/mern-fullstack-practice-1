@@ -7,7 +7,13 @@ import Input from './Input'
 const Auth = () => {
     const [showPassword, setShowPassword ] = useState(false)
     const classes = useStyles()
-    const isSignUp = false;
+    const [isSignUp, setIsSignUp] = useState(false)
+    const handleShowPassword = ()=>{
+        setShowPassword((prevShowPassword)=>!prevShowPassword)
+    }
+    const switchMode = ()=>{
+        setIsSignUp( (previousSignUp)=> !previousSignUp )
+    }
     return (
         <Container component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
@@ -18,7 +24,7 @@ const Auth = () => {
                 <form className={classes.form} onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         {
-                            isSignup && (
+                            isSignUp && (
                                 <>
                                     <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half/>
                                     <Input name="lastName" label="Last Name" handleChange={handleChange} half/>
@@ -26,7 +32,18 @@ const Auth = () => {
                             )
                         }
                         <Input name="email" label="Email Address" handleChange={handleChange} type="email"/>
-                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"}/>
+                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword}/>
+                        {isSignUp && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password"/>}
+                    </Grid>
+                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                        {isSignUp ? 'Sign Up' : 'Sign In'}
+                    </Button>
+                    <Grid container justify="flex-end">
+                        <Grid item>
+                            <Button onClick={switchMode}>
+                                { isSignUp ? 'Already have an account? Sign in' : "Don't already have an account? Sign Up!"}
+                            </Button>
+                        </Grid>
                     </Grid>
                 </form>
             </Paper>
