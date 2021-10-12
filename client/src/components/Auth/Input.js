@@ -15,6 +15,7 @@ const Input = ({name, handleChange, autoFocus, handleShowPassword, half, label, 
                 autoFocus={autoFocus}
                 type={type}
                 InputProps={name=== 'password' && {
+                    //adds property from material ui that includes this feature
                     endAdornment : (
                         <InputAdornment position="end">
                             <IconButton onClick={handleShowPassword}>

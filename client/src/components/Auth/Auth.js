@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import { Avatar, Button, Paper, Grid, Typography, Grid, Container, TextField } from '@material-ui/core'
+import { GoogleLogin} from 'react-google-login'
+import Icon from './icon'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import useStyles from './styles'
 import Input from './Input'
@@ -36,6 +38,20 @@ const Auth = () => {
                         <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword}/>
                         {isSignUp && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password"/>}
                     </Grid>
+                    <GoogleLogin
+                        clientId="GOOGLE ID"
+                        render={(renderProps)=>{
+                            <Button 
+                                className={classes.googleButton} 
+                                color="primary" 
+                                fullWidth onClick={renderProps.onClick} 
+                                disabled={renderProps.disabled} 
+                                startIcon={<Icon/>} 
+                                variant="contained">
+                                    Google Sing In
+                             </Button>
+                        }}
+                    />
                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                         {isSignUp ? 'Sign Up' : 'Sign In'}
                     </Button>
