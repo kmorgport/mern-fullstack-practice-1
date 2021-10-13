@@ -14,7 +14,7 @@ const Input = ({name, handleChange, autoFocus, handleShowPassword, half, label, 
                 label={label}
                 autoFocus={autoFocus}
                 type={type}
-                InputProps={name=== 'password' && {
+                InputProps={name=== 'password' ? {
                     //adds property from material ui that includes this feature
                     endAdornment : (
                         <InputAdornment position="end">
@@ -22,8 +22,8 @@ const Input = ({name, handleChange, autoFocus, handleShowPassword, half, label, 
                                 {type === "password" ? <Visibility/> : <VisibilityOff/>}
                             </IconButton>
                         </InputAdornment>
-                    )
-                }}
+                    ),
+                } : null}
             />
         </Grid>
     )
