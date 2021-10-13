@@ -1,12 +1,15 @@
-import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import { AUTH, LOGOUT} from '../constants/actionTypes';
 
-const authReducer = (state, action) =>{
+const authReducer = (state = {authData:null}, action) =>{
     switch (action.type){
         case AUTH: 
+            localStorage.setItem('profile', JSON.stringify({ ...action?.data}))
+            return {...state, authData: action?.data }
+        case LOGOUT:
             console.log(action?.data);
+            break
         default:
-            createBreakpoints
+            return state
     }
 }
 
