@@ -7,10 +7,11 @@ import { useHistory } from 'react-router-dom'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import useStyles from './styles'
 import Input from './Input'
+import { signUp, signIn } from '../../actions/auth'
 
 const initialState = { 
-    firstState: '',
-    lastName: '',
+    firstName: '',
+    lastName: '', 
     email: '', 
     password: '',
     confirmPassword: ''
@@ -32,7 +33,16 @@ const Auth = () => {
 
     const handleSubmit =  (e)=>{
         e.preventDefault();
+        if(isSignUp){
+            dispatch(signUp(formData, history))
+        }else {
+            dispatch(signIn(formData, history))
+        }
     };
+
+    const handleChange = ()=>{
+        setFormData({ ...formData, [e.target.name]:e.target.value  })
+    }
 
 
     const switchMode = ()=>{
