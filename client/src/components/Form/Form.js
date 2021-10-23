@@ -9,7 +9,6 @@ import { createPost, updatePost } from '../../actions/posts'
 const Form = ({currentId, setCurrentId}) => {
     const post = useSelector((state)=> currentId ? state.posts.find(p=> p._id === currentId): null)
     const [postData, setPostData] = useState({
-        creator: '',
         title: '',
         message: '',
         tags: '',
@@ -33,12 +32,12 @@ const Form = ({currentId, setCurrentId}) => {
         clear()
     }
     
-    const onChangeCreatorHandler = e =>{
-        setPostData({
-            ...postData,
-            creator: e.target.value
-        })
-    }
+    // const onChangeCreatorHandler = e =>{
+    //     setPostData({
+    //         ...postData,
+    //         creator: e.target.value
+    //     })
+    // }
 
     const onChangeTitleHandler = e =>{
         setPostData({
@@ -64,7 +63,6 @@ const Form = ({currentId, setCurrentId}) => {
     const clear = ()=> {
         setCurrentId(null)
         setPostData({
-            creator: '',
             title: '',
             message: '',
             tags: '',
@@ -76,7 +74,6 @@ const Form = ({currentId, setCurrentId}) => {
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">{currentId ? 'Editing': 'Creating'} a Memory</Typography>
-                <TextField name="creator" variant="outlined" label="Creator" fullWidth value={postData.creator} onChange={onChangeCreatorHandler}/>
                 <TextField name="title" variant="outlined" label="Creator" fullWidth value={postData.title} onChange={onChangeTitleHandler}/>
                 <TextField name="message" variant="outlined" label="Creator" fullWidth value={postData.message} onChange={onChangeMessageHandler}/>
                 <TextField name="tags" variant="outlined" label="Creator" fullWidth value={postData.tags} onChange={onChangeTagsHandler}/>
