@@ -3,8 +3,10 @@ import * as api from '../api'
 
 export const signIn = (formData, history) => async (dispatch)=> {
     try{
-        //login the user
-        //use history to navigate to the home page
+        const { data } = await api.signIn(formData);
+
+        dispatch({ type: AUTH, data });
+        history.push('/')
     }catch (error){
         console.log(error)
     }  
@@ -12,7 +14,10 @@ export const signIn = (formData, history) => async (dispatch)=> {
 
 export const signUp = () => async (dispatch) => {
     try{
-        //sign up the user
+         const { data } = await api.signUp(formData);
+
+        dispatch({ type: AUTH, data });
+        history('/')
     }catch(error){
         console.log(error)
     }
