@@ -8,7 +8,7 @@ import ChipInput from 'material-ui-chip-input';
 import memories from './images/memories.png'
 import { useDispatch } from 'react-redux'
 import {getPosts, getPostsBySearch } from '../../actions/posts'
-import Paginate from "../Pagination";
+import Pagination from "../Pagination";
 import { Pagination } from "@material-ui/lab";
 
 function useQuery (){
