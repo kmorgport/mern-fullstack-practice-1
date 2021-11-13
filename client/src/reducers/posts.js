@@ -14,6 +14,11 @@ export default (state = {isLoading: true, posts: []}, action) => {
                 ...state,
                 posts: action.payload.data
             }
+        case FETCH_POST:
+            return {
+                    ...state,
+                    post: action.payload
+            }
         case FETCH_ALL:
             return {
                 ...state,

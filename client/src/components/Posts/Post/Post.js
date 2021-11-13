@@ -5,11 +5,13 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import useStyles from './styles'
 import moment from 'moment'
+import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 
 import { deletePost, likePost } from '../../../actions/post'
 
 const Post = ({post}) => {
+    const history = useHistory()
     const dispatch = useDispatch()
     const classes = useStyles()
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -26,7 +28,9 @@ const Post = ({post}) => {
         return <><ThumbUpAltOutlined fontSize="small"/>&nbsp;like</>
     }
 
-    const openPost
+    const openPost = ()=> {
+        history.push(`/posts/${post._id}`)
+    }
     
     return(
         <Card className={classes.card} raised elevation={6}>
