@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react'
 import Filebase from 'react-file-base64'
 import { TextField, Button, Typography, Paper, DialogContentText} from '@material-ui/core'
 import useStyles from './styles'
+import {useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost, updatePost } from '../../actions/posts'
 
 const Form = ({currentId, setCurrentId}) => {
-    const post = useSelector((state)=> currentId ? state.posts.find(p=> p._id === currentId): null)
+    const post = useSelector((state)=> currentId ? state.posts.post.find(p=> p._id === currentId): null)
+
     const [postData, setPostData] = useState({
         title: '',
         message: '',
