@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import { Typography, TextField, Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-
+import { commentPost } from '../../actions/posts'
 import useStyles from './styles';
 import { mergeClasses } from '@material-ui/styles';
 
@@ -9,9 +9,12 @@ const CommentSection = ({post}) => {
     const classes = useStyles()
     const [comments, setComments ] = useState();
     const [comment, setComment ] = useState("")
+    const user = JSON.parse(localStorage.getItem("user"));
+    const dispatch = useDispatch();
 
     const handleClick = ()=> {
-
+        const finalComment = `${user.result.name}: ${comment}`
+        dispatch(commentPost(finalComment, post._id))
     }
     return (
         <div>
@@ -34,8 +37,8 @@ const CommentSection = ({post}) => {
                     multiline
                     value={comment}
                     onChange={(e)=> setComment(e.target.value)}/>
-                <Button style={{ marginTop: '10px'}} fullWidth disabled={!comment} variant="contained" onClick={handleClick}>
-                        
+                <Button style={{ marginTop: '10px'}} fullWidth color="primary" disabled={!comment} variant="contained" onClick={handleClick}>
+
                 </Button>
                 </div>
             </div>
