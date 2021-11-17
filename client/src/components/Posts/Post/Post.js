@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBase } from '@material-ui/core'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -11,10 +11,22 @@ import { useDispatch } from 'react-redux';
 import { deletePost, likePost } from '../../../actions/post'
 
 const Post = ({post}) => {
-    const history = useHistory()
-    const dispatch = useDispatch()
-    const classes = useStyles()
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const classes = useStyles();
     const user = JSON.parse(localStorage.getItem('profile'));
+    const [ likes, setLikes ] = useState(post?.likes);
+
+    const hasLikedPost = post.likes.find( like => like === userId)
+    const userId = user?.result.googleId || user?.result?.id;
+
+    const handleLike = async () => {
+        dispatch(likePost(post._id));
+
+        if(hasLikedPost){
+            setLikes(post.likes.filter((id)=> id !== userId))
+        }
+    };
 
     const Likes = ()=>{
         if (post.likes.length > 0){
@@ -57,7 +69,7 @@ const Post = ({post}) => {
             </CardContent>
         </ButtonBase>
             <CardActions className={classes.cardActions}>
-                <Button size="small" color="primary" disabled={!user?.result} onClick={()=>dispatch(likePost(post._id))}>
+                <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
                     <ThumbUpAltIcon fontSize="small"/>
                     <Likes/>
                 </Button>
